@@ -5,7 +5,8 @@ const SignupLogin = require("../../controllers/signup-loginController");
 
 router.post('/signup', SignupLogin.SignUp );
 
-router.post('/login',SignupLogin.login );
+router.post('/login',SignupLogin.login);
+router.route('/login').post(SignupLogin.login);
 
 
 
