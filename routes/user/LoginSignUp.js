@@ -5,7 +5,8 @@ const {isUserAuth} = require('../../middleware/authuser')
 
 router.post('/signup', SignupLogin.SignUp );
 
-router.post('/login',SignupLogin.login );
+router.post('/login',SignupLogin.login);
+router.route('/login').post(SignupLogin.login);
 
 
 
