@@ -5,15 +5,17 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = 'secret';
 
 exports.SignUp = async (req, res) => {
-    const { username, password } = req.body;
-  
+    const { name, phone , email ,password } = req.body;
+   
   
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Create a new user
       const newUser = new User({
-        username,
+        name,
+        phone,
+        email,
         password: hashedPassword,
       });
   
@@ -21,7 +23,7 @@ exports.SignUp = async (req, res) => {
       await newUser.save();
   
       // Generate JWT
-      const token = jwt.sign({ userId: newUser._id, username: newUser.username }, JWT_SECRET, 
+      const token = jwt.sign({ userId: newUser._id, name: newUser.name }, JWT_SECRET, 
          
       );
   
@@ -30,16 +32,16 @@ exports.SignUp = async (req, res) => {
   }
 
   exports.login = async (req, res) => {
-    const { username, password } = req.body;
+    const {phone, password } = req.body;
   
     try {
         // Validate input
-        if (!username || !password) {
-            return res.status(400).json({ message: 'username and password are required' });
+        if (!phone || !password) {
+            return res.status(400).json({ message: 'phone number and password are required' });
         }
   
         // Find user by username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ phone});
         if (!user) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
@@ -62,3 +64,6 @@ exports.SignUp = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
   }
+
+
+  
