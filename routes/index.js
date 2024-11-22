@@ -88,11 +88,12 @@ const express = require('express')
 
 const slash=  require("./user/slash");
 const LoginSignUp = require("./user/LoginSignUp")
-
+const businessCrud = require('./business/CRUD')
 const router = express.Router();
 
 
-router.use("/user",LoginSignUp)
+router.use("/user",LoginSignUp);
+router.use('/business',businessCrud);
 router.use("/", slash);
 
 module.exports = router;

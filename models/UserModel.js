@@ -23,6 +23,13 @@ const userSchema = new mongoose.Schema({
     minlength: 4,
     match: [/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'], // Regex for at least one special character
   },
+  businesses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Business' // Reference to the Business model
+    }
+  ],
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('User', userSchema);
